@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>this is home page</h1>
+<section class="row container-fluid mt-5 mb-5">
+    <div class="col-6 p-5">
+        <h1>BEAT THE BITE OF WINTER <br> WITH NEW IDEAS</h1>
+        <h4>Find the GM Vehicle <br> that's right for you</h4>
+        <button type="button" class="btn btn-outline-primary mt-1 shadow-lg p-3 mb-5 bg-body-primary rounded">Let's Gooo....</button>
+    </div>
+    <div class="col-6">
+        <img src="{% static 'images/car.jpg' %}" class="w-100 h-75" alt="">
+    </div>
+</section>
 {% endblock %}

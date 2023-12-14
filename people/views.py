@@ -65,7 +65,8 @@ class profileView(View):
     def get(self, request):
         return render(request, 'profile.html')
     
-    
+
+@method_decorator(login_required,name='dispatch')
 class changePasswordView(PasswordChangeView):
     template_name = 'change_password.html'
     success_url = reverse_lazy('logIn')

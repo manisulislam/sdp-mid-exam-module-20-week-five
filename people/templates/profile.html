@@ -7,23 +7,36 @@
     <a href="{% url 'edit_profile' %}">
         <button class="btn btn-outline-primary ">Edit Profiles</button>
     </a>
-    <div class="col-12 mb-5">
-        <h1 class="mb-4"> Total data : {{ data | length}}</h1>
-        <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
-            
-        <div class="card" style="width: 18rem;">
-            <img src="{{car.file.url}}" class="card-img-top img-fluid" style="width: 285px; height: 280px;" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Car name: {{car.car_name}}</h5>
-                <p class="card-text">Car description: {{car.description | truncatewords:10}}</p>
-                <h3>Price: {{car.price}}$</h3>
-                <h4>Brand name: {{car.brand.Brand_Name}}</h4>
-                
-            </div>
-        </div>
-       
-        </div>
-    </div>
+    <h2 class="text-center mt-5 mb-5 text-dark">Order history: </h2>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sl.no</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">User email</th>
+            <th scope="col">Car Name</th>
+            <th scope="col">Car id</th>
+            <th scope="col">Car price</th>
+            <th scope="col">total price</th>
+            <th scope="col">Order Date</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{order.user.first_name}} {{order.user.last_name}}</td>
+            <td>{{order.user.email}}</td>
+            <td>{{order.car_model.car_name}}</td>
+            <td>{{order.car_model.id}}</td>
+            <td>{{order.car_model.price}}</td>
+            <td>{{order.total_price}}</td>
+            <td>{{ order.created_on}}</td>
+           
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 </div>
 
 {% endblock %}

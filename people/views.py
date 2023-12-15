@@ -10,6 +10,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordChangeView
+from django.views.generic import DetailView
+from car.models import Car_Model
 # Create your views here..
 
 class signUpView(View):
@@ -70,3 +72,9 @@ class profileView(View):
 class changePasswordView(PasswordChangeView):
     template_name = 'change_password.html'
     success_url = reverse_lazy('logIn')
+
+
+class orderHistoryView(DetailView):
+    template_name="profile.html"
+    pk_url_kwarg="id"
+    model= Car_Model

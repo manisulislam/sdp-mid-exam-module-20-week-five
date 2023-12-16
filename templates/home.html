@@ -33,8 +33,8 @@
         <div class="card" style="width: 18rem;">
             <img src="{{item.file.url}}" class="card-img-top img-fluid" style="width: 285px; height: 280px;" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Car name: {{item.car_name}}</h5>
-                <p class="card-text">Car description: {{item.description | truncatewords:10}}</p>
+                <h5 class="card-title">Car title: {{item.car_name}}</h5>
+                <p class="card-text"><b>Car description:</b> {{item.description | truncatewords:10}}</p>
                 <h3>Price: {{item.price}}$</h3>
                 <h4>Brand name: {{item.brand.Brand_Name}}</h4>
                 <a href="{% url 'car_details' item.id %}" class="btn btn-primary">View Details</a>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from .forms import userSignUpForm
@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordChangeView
 from django.views.generic import DetailView
 from car.models import Car_Model
+from car.models import Order
 # Create your views here..
 
 class signUpView(View):
@@ -62,19 +63,30 @@ class editProfileView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('profile')
 
+
+
 @method_decorator(login_required,name='dispatch')
 class profileView(View):
     def get(self, request):
-        return render(request, 'profile.html')
+        orders=Order.objects.filter(user=request.user)
+        return render(request, 'profile.html',{"orders":orders})
+   
+        
+def buyCar(request,id):
+    car=Car_Model.objects.get(id=id)
     
+    
+    if car.quantity > 0:
+        car.quantity -= 1
+        car.save()
+        order=Order.objects.create(user=request.user,car_model=car)
+        order.save()
+        return render(request, 'profile.html',)
+    else:
+        return render(request, 'car_details.html')
 
 @method_decorator(login_required,name='dispatch')
 class changePasswordView(PasswordChangeView):
     template_name = 'change_password.html'
     success_url = reverse_lazy('logIn')
 
-
-class orderHistoryView(DetailView):
-    template_name="profile.html"
-    pk_url_kwarg="id"
-    model= Car_Model

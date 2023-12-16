@@ -34,28 +34,3 @@ class CarDetailsView(DetailView):
         context['data'] = data
         return context
 
-
-def buyCar(request, id):
-    car = Car_Model.objects.get(id=id)
-    
-    try:
-        if car.quantity > 0:
-            car.quantity -= 1
-            car.save()
-            order=Order(user=request.user, car=car, quantity=1)
-            order.save()
-            
-            return redirect('profile', id=request.user.id)
-            
-    except Exception as e:
-        print(e)
-        
-        
-    return redirect('car_details', id=id)
-
-def orderHistory(request, id):
-    orders = Order.objects.filter(user=id)
-    context = {
-        'orders': orders
-    }
-    return render(request, 'order_history.html', context)
